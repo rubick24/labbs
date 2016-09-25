@@ -16,16 +16,17 @@ class CreateTagsTable extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name',50);
+            $table->timestamps();
         });
 
-        Schema::create('tag_article', function (Blueprint $table) {
-            $table->integer('tag_id')->unsigned();
+        Schema::create('article_tag', function (Blueprint $table) {
             $table->integer('article_id')->unsigned();
-
-            $table->foreign('tag_id')->references('id')->on('tags')
-                ->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('tag_id')->unsigned();
             $table->foreign('article_id')->references('id')->on('articles')
                 ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')
+                ->onUpdate('cascade')->onDelete('cascade');
+
             $table->primary(['tag_id', 'article_id']);
         });
 
