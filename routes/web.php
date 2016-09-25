@@ -12,9 +12,23 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+//Route::resource('/article','ArticleController');
+//Route::get('/user/{name}','UserController');
+
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|owner']], function() {
+    //Route::get('/', 'AdminController@index');
+    //Route::get('/article', 'AdminController@manageArticle');
+});
+
+Route::group(['prefix' => 'owner', 'middleware' => ['role:owner']], function() {
+    //Route::get('/', 'OwnerController@index');
+    //Route::get('/user','OwnerController@manageUser');
+    //Route::get('/article','OwnerController@manageArticle');
+    //Route::get('/log');
+});
