@@ -11,6 +11,17 @@ class User extends Authenticatable
     use LaratrustUserTrait;
     use Notifiable;
 
+    public function articles(){
+        return $this->hasMany('App\Article');
+    }
+
+    public function comments(){
+        return $this->hasMany('App\Comment');
+    }
+
+    public function photos(){
+        return $this->hasMany('App\Photo');
+    }
     /**
      * The attributes that are mass assignable.
      *
