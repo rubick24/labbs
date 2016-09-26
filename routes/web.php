@@ -20,6 +20,9 @@ Auth::routes();
 Route::resource('/article','ArticleController');
 Route::get('/user/{id}','UserController@user');
 
+Route::get('/settings','UserController@settings');
+Route::get('/messages','UserController@messages');
+
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|owner']], function() {
     //Route::get('/', 'AdminController@index');
     //Route::get('/article', 'AdminController@manageArticle');
