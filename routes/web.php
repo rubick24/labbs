@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('/article','ArticleController');
-//Route::get('/user/{name}','UserController@user');
+Route::get('/user/{id}','UserController@user');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|owner']], function() {
     //Route::get('/', 'AdminController@index');
