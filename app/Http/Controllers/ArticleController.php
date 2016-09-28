@@ -46,7 +46,7 @@ class ArticleController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'content' => 'required',
-            'category' => 'required|exists:categories'
+            'category' => 'required|exists:categories,id'
         ]);
         Storage::put('public/article/'.md5($request->get('title')).'.md',$request->get('content'));
         //$path = Storage::putFileAs('article', $request->get('content'),md5($request->get('title')).'.md');
@@ -103,7 +103,12 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        foreach (Article::find($id)->comments as $comment){
+            $comment->delete();
+        }
+        Article::find($id)->delete();
+        return redirect('/article');
+
     }
 
 }

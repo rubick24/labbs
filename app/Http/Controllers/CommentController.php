@@ -10,7 +10,7 @@ use App\Http\Requests;
 class CommentController extends Controller
 {
 
-    public function postComment(Request $request){
+    public function post(Request $request){
         if(\Auth::guest())
             return redirect('/login');
         $this->validate($request, [
@@ -22,7 +22,11 @@ class CommentController extends Controller
         $comment->user_id = \Auth::user()->id;
         $comment->content = $request->get('comment');
         $comment->save();
-        //print_r($comment);
         return redirect('/article/'.$request->get('article'));
+    }
+
+    public function destroy($id){
+        Comment::find($id)->delete();
+        return redirect()->back();
     }
 }

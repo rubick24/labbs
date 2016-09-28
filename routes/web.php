@@ -18,7 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('/article','ArticleController');
-Route::post('/comment','CommentController@postComment');
+Route::post('/comment','CommentController@post');
+Route::delete('/comment/{id}','CommentController@destroy');
 Route::get('/user/{id}','UserController@user');
 
 Route::get('/settings','UserController@settings');

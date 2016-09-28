@@ -13,7 +13,14 @@
                         {{ $article->created_at }}
                         <a class="pull-right" style="padding: 0 10px;font-size: 10px;text-decoration: none" href="{{ url('article/') }}">返回列表</a>
                     </p>
-                    <hr>
+                    @if(Auth::user()->id ==$article->user_id)
+                        <form action="{{ url('/article/'.$article->id) }}" method="POST" style="display: inline;">
+                            {{ method_field('DELETE') }}
+                            {{ csrf_field() }}
+                            <button type="submit" class="btn btn-sm pull-right btn-default">Delete</button>
+                        </form>
+                    @endif
+                    <br><hr>
                     <p>{!! $article->html() !!}</p>
                     <a style="padding: 0 10px;font-size: 10px;text-decoration: none" href="{{ url('article/') }}">返回列表</a>
                 </div>
@@ -29,9 +36,16 @@
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading">{{$comment->user->name}}</h4>
-                                <p><span style="color: #aaaaaa">posted at</span> {{ $comment->created_at }}</p>
+                                <p><span style="color: #aaaaaa">posted at</span> {{ $comment->created_at }} </p>
                                 {{ $comment->content }}
                             </div>
+                            @if(Auth::user()->id ==$comment->user->id)
+                                <form action="{{ url('/comment/'.$comment->id) }}" method="POST" style="display: inline;">
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+                                    <button type="submit" class="btn btn-sm pull-right btn-default">Delete</button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>
