@@ -40,7 +40,7 @@ $factory->define(App\Article::class,function (Faker\Generator $faker){
         'user_id'     => $faker->numberBetween(1,6),
         'category_id' => $faker->numberBetween(1,4),
         'title'       => $faker->sentence(),
-        'url'         => 'article/markdown.md',
+        'url'         => 'public/article/markdown.md',
         'stat'        => 0,
         'upper'       => false
     ];

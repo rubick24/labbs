@@ -20,8 +20,8 @@ class CreateArticlesTable extends Migration
             $table->integer('category_id')->unsigned()->nullable();
             $table->string('title',255);
             $table->string('url',255);
-            $table->tinyInteger('stat');
-            $table->boolean('upper');
+            $table->tinyInteger('stat')->default(0);
+            $table->boolean('upper')->default(0);
             $table->timestamps();
         });
     }

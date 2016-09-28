@@ -10,7 +10,7 @@ class Article extends Model
 
     public function html(){
         $parser = new Parser();
-        return $parser->makeHtml(Storage::get('public/'.$this->url));
+        return $parser->makeHtml(Storage::get(($this->url)));
     }
 
 

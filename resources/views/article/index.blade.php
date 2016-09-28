@@ -7,6 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     You are logged in!
+                    <a class="btn btn-info" href="{{ url('/article/create') }}">Post an article</a>
                 </div>
             </div>
             @foreach ($articles as $article)

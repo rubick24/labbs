@@ -54,6 +54,18 @@ class LaratrustSetupTables extends Migration
 
             $table->primary(['permission_id', 'role_id']);
         });
+
+        $owner = new \App\Role();
+        $owner->name         = 'owner';
+        $owner->display_name = 'Project Owner'; // optional
+        $owner->description  = 'User is the owner of a given project'; // optional
+        $owner->save();
+
+        $admin = new \App\Role();
+        $admin->name         = 'admin';
+        $admin->display_name = 'User Administrator'; // optional
+        $admin->description  = 'User is allowed to manage articles'; // optional
+        $admin->save();
     }
 
     /**
