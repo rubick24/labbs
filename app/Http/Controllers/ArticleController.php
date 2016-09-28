@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Category;
+use App\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Storage;
@@ -40,9 +41,12 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+        if(\Auth::guest())
+            return redirect('/login');
         $this->validate($request, [
             'title' => 'required|max:255',
-            'content' => 'required'
+            'content' => 'required',
+            'category' => 'required|exists:categories'
         ]);
         Storage::put('public/article/'.md5($request->get('title')).'.md',$request->get('content'));
         //$path = Storage::putFileAs('article', $request->get('content'),md5($request->get('title')).'.md');
@@ -101,4 +105,5 @@ class ArticleController extends Controller
     {
         //
     }
+
 }

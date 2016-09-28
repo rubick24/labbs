@@ -23,7 +23,7 @@
                         </div>
                         <div class="input-group" style="width: 100%;display: inline;padding: 20px 0">
                             <label>Category : </label>
-                            <select class=<rol" name="cate" title="cate" >
+                            <select name="category" title="category" >
                                 @foreach($categorys as $category)
                                     <option value="{{$category->id}}" >{{ $category->name }}</option>
                                 @endforeach

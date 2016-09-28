@@ -24,7 +24,7 @@
 
                 @foreach ($user->articles as $article)
                     <div class="media">
-                        <a href="{{ url('article/'.$article->id) }}">{{$article->title}}</a>
+                        <a href="{{ url('article/'.$article->id) }}"><h4>{{$article->title}}</h4></a>
                     </div>
                 @endforeach
 

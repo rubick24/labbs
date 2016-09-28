@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('/article','ArticleController');
+Route::post('/comment','CommentController@postComment');
 Route::get('/user/{id}','UserController@user');
 
 Route::get('/settings','UserController@settings');

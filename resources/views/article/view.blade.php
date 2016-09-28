@@ -56,11 +56,18 @@
                             </div>
                             <div class="media-body">
                                 <h4>{{Auth::user()->name}}</h4>
-                                <form>
+                                @if (count($errors) > 0)
+                                    <div class="alert alert-danger">
+                                        <strong>发表失败</strong> 输入不符合要求<br><br>
+                                        {!! implode('<br>', $errors->all()) !!}
+                                    </div>
+                                @endif
+                                <form action="{{ url('/comment') }}" method="POST">
                                     {!! csrf_field() !!}
+                                    <input name="article" type="hidden" value="{{ $article->id }}">
                                     <textarea title="comment" name="comment" class="form-control" placeholder="post a comment here.." style="width: 100%;height: 120px;resize: none"></textarea>
                                     <div class="input-group pull-right" style="padding: 10px">
-                                        <button class="btn btn-info" type="submit">Post</button>
+                                        <button class="btn btn-primary" type="submit">Post</button>
                                     </div>
                                 </form>
                             </div>
