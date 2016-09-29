@@ -18,9 +18,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('/article','ArticleController');
+
 Route::post('/comment','CommentController@post');
 Route::delete('/comment/{id}','CommentController@destroy');
+
+Route::get('/category/{name}','CategoryController@detail');
+Route::get('/category','CategoryController@index');
+
 Route::get('/user/{id}','UserController@user');
+Route::post('/user/{id}/avatar','UserController@avatar');
 
 Route::get('/settings','UserController@settings');
 Route::get('/messages','UserController@messages');

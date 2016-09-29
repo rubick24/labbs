@@ -6,11 +6,15 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    You are logged in!
-                    <a class="btn btn-primary" href="{{ url('/article/create') }}">Post an article</a>
+                    <div >
+                        <h4>
+                            Category : {{ $category->name }} <span class="badge" style="font-family: 'Lato', sans-serif"> {{ $category->articles->count() }} </span>
+                        </h4>
+                        <a href="{{ url('/category') }}" class="pull-right"> 返回列表 </a>
+                    </div>
                 </div>
             </div>
-            @foreach ($articles as $article)
+            @foreach($category->articles as $article)
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <a href="{{ url('article/'.$article->id) }}" style="text-decoration: none">
@@ -31,9 +35,9 @@
                         </p>
                     </div>
                 </div>
+
             @endforeach
 
-            </div>
         </div>
     </div>
 </div>

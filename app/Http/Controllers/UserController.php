@@ -15,7 +15,20 @@ class UserController extends Controller
             return view('user.profile')->withUser(User::find($id));
         }
         else return redirect('article');
+    }
 
+    public function avatar(Request $request,$id){
+        if($id!=Auth::id()){
+            return redirect()->back();
+        }
+        $this->validate($request,[
+            'avatar'  =>  'required|image'
+        ]);
+        $path = $request->file('avatar')->store('public/avatar');
+        $user = Auth::user();
+        $user->avatar = substr($path,7);
+        $user->save();
+        return redirect()->back();
     }
 
     public function settings(){

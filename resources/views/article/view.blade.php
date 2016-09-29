@@ -13,14 +13,23 @@
                         {{ $article->created_at }}
                         <a class="pull-right" style="padding: 0 10px;font-size: 10px;text-decoration: none" href="{{ url('article/') }}">返回列表</a>
                     </p>
-                    @if(Auth::user()->id ==$article->user_id)
+                    <p>
+                        <span style="color: #aaaaaa;">category:</span>
+                        <a href="{{ url('/category/'.$article->category->name) }}">{{ $article->category->name }}</a>
+                        <span style="color: #aaaaaa;padding-left: 20px"> tags:</span>
+                        @foreach($article->tags as $tag)
+                            <span class="label label-info">{{ $tag->name }}</span>
+                        @endforeach
+                    </p>
+                    @if(Auth::id() ==$article->user_id)
                         <form action="{{ url('/article/'.$article->id) }}" method="POST" style="display: inline;">
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}
                             <button type="submit" class="btn btn-sm pull-right btn-default">Delete</button>
                         </form>
+                        <br>
                     @endif
-                    <br><hr>
+                    <hr>
                     <p>{!! $article->html() !!}</p>
                     <a style="padding: 0 10px;font-size: 10px;text-decoration: none" href="{{ url('article/') }}">返回列表</a>
                 </div>
@@ -39,7 +48,7 @@
                                 <p><span style="color: #aaaaaa">posted at</span> {{ $comment->created_at }} </p>
                                 {{ $comment->content }}
                             </div>
-                            @if(Auth::user()->id ==$comment->user->id)
+                            @if(Auth::id() ==$comment->user->id)
                                 <form action="{{ url('/comment/'.$comment->id) }}" method="POST" style="display: inline;">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}
@@ -64,7 +73,7 @@
                             </div>
                         @else
                             <div class="media-left">
-                                <a href="{{url('/user/'.Auth::user()->id)}}">
+                                <a href="{{url('/user/'.Auth::id())}}">
                                     <img class="media-object" style="width: 80px" src="{{ asset('storage/'.Auth::user()->avatar)}}">
                                 </a>
                             </div>
