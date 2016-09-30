@@ -37,8 +37,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|owner']], functi
 });
 
 Route::group(['prefix' => 'owner', 'middleware' => ['role:owner']], function() {
-    //Route::get('/', 'OwnerController@index');
-    //Route::get('/user','OwnerController@manageUser');
+    Route::get('/', 'OwnerController@index');
+    Route::get('/user','OwnerController@manageUser');
     //Route::get('/article','OwnerController@manageArticle');
     //Route::get('/log');
 });

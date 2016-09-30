@@ -6,7 +6,7 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    You are logged in!
+                    New
                     <a class="btn btn-primary" href="{{ url('/article/create') }}">Post an article</a>
                 </div>
             </div>
@@ -25,8 +25,8 @@
                             @endforeach
                         </p>
                         <p>
-                            <a href="{{url('/user/'.$article->user_id)}}">{{ $article->user->name }}</a>
-                            <span style="color: #aaaaaa">posted at</span>
+                            <a href="{{url('/user/'.$article->user_id)}}">{{ $article->user->name }} </a>
+                            <span style="color: #aaaaaa"> posted at</span>
                             {{ $article->created_at }}
                         </p>
                     </div>
