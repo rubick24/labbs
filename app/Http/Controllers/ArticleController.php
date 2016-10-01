@@ -18,7 +18,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return view('article.index')->withArticles(Article::all());
+        $articles = Article::paginate(6);
+        return view('article.index',compact('articles'));
     }
 
     /**
@@ -30,7 +31,8 @@ class ArticleController extends Controller
     {
         if(\Auth::guest())
             return redirect('/login');
-        return view('article.create')->withCategorys(Category::all());
+        $categorys = Category::all();
+        return view('article.create',compact('categorys'));
     }
 
     /**

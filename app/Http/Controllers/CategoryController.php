@@ -10,10 +10,12 @@ use App\Http\Requests;
 class CategoryController extends Controller
 {
     public function index(){
-        return view('category.index')->withCategorys(Category::all());
+        $categorys = Category::all();
+        return view('category.index',compact('categorys'));
     }
 
     public function detail($name){
-        return view('category.detail')->withCategory(Category::where('name',$name)->first());
+        $category = Category::where('name',$name)->first();
+        return view('category.detail',compact('category'));
     }
 }

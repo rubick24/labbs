@@ -57,15 +57,36 @@ class LaratrustSetupTables extends Migration
 
         $owner = new \App\Role();
         $owner->name         = 'owner';
-        $owner->display_name = 'Project Owner'; // optional
-        $owner->description  = 'User is the owner of a given project'; // optional
+        $owner->display_name = 'Project Owner';
+        $owner->description  = 'User is the owner of a project';
         $owner->save();
 
         $admin = new \App\Role();
         $admin->name         = 'admin';
-        $admin->display_name = 'User Administrator'; // optional
-        $admin->description  = 'User is allowed to manage articles'; // optional
+        $admin->display_name = 'User Administrator';
+        $admin->description  = 'User is allowed to manage articles';
         $admin->save();
+
+        $member = new \App\Role();
+        $member->name        = 'member';
+        $member->display_name= 'Member';
+        $member->save();
+
+        $createPost = new \App\Permission();
+        $createPost->name         = 'create-post';
+        $createPost->display_name = 'Create Posts';
+        $createPost->description  = 'create new blog posts';
+        $createPost->save();
+        $owner->attachPermission($createPost);
+        $admin->attachPermission($createPost);
+        $member->attachPermission($createPost);
+
+        $manageArticles = new \App\Permission();
+        $manageArticles->name     = 'manage-articles';
+        $manageArticles->display_name = 'Manage Articles';
+        $manageArticles->save();
+        $owner->attachPermission($manageArticles);
+        $admin->attachPermission($manageArticles);
     }
 
     /**

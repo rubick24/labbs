@@ -32,6 +32,10 @@
                     </div>
                 </div>
             @endforeach
+            <div style="width: 30%; min-width: 200px;margin: 0 auto">
+                {{ $articles->links() }}
+            </div>
+
 
             </div>
         </div>

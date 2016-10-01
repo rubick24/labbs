@@ -16,6 +16,16 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('/active',function(){
+    $user = \App\User::find($_GET['id']);
+    if($user->token==$_GET['token']){
+        $user->status = 1;
+        $user->save();
+        $user->roles()->attach(3);
+        return redirect('/article');
+    }
+    else echo '激活失败';
+});
 
 Route::resource('/article','ArticleController');
 
