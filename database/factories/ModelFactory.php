@@ -37,7 +37,7 @@ $factory->define(App\Category::class,function (Faker\Generator $faker){
 
 $factory->define(App\Article::class,function (Faker\Generator $faker){
     return [
-        'user_id'     => $faker->numberBetween(1,6),
+        'user_id'     => $faker->numberBetween(1,15),
         'category_id' => $faker->numberBetween(1,4),
         'title'       => $faker->sentence(),
         'url'         => 'public/article/markdown.md',
@@ -48,8 +48,8 @@ $factory->define(App\Article::class,function (Faker\Generator $faker){
 
 $factory->define(App\Comment::class,function (Faker\Generator $faker){
     return [
-        'article_id'  => $faker->numberBetween(1,20),
-        'user_id'     => $faker->numberBetween(1,6),
+        'article_id'  => $faker->numberBetween(1,50),
+        'user_id'     => $faker->numberBetween(1,15),
         'content'     => $faker->sentences(3,true),
     ];
 });
