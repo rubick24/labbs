@@ -40,13 +40,21 @@
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
+
+                <form method="get" action="{{ url('/search') }}" class="navbar-form navbar-left" role="search">
+                    <div class="form-group-sm" style="padding-top: 3px">
+                        <input name="text" type="text" class="form-control" placeholder="Search">
+                    </div>
+                </form>
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     &nbsp;
+                    <li><a href="{{ url('/article') }}">Article</a></li>
+                    <li><a href="{{ url('/category') }}">Category</a></li>
                 </ul>
-
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
+
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
@@ -92,8 +100,15 @@
             </div>
         </div>
     </nav>
+    <div style="min-height: 400px">
+        @yield('content')
 
-    @yield('content')
+    </div>
+
+
+    <div style="background: #444;height: 160px;width: 100%;color: #dddddd;text-align: center" >
+        <p style="padding: 40px 0">Hand crafted with love by me</p>
+    </div>
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>

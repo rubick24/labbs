@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.3.10 on 2016-09-25.
+ * Generated for Laravel 5.3.10 on 2016-10-02.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -11911,6 +11911,43 @@ namespace {
          */
         public static function routeNeedsRoleOrPermission($route, $roles, $permissions, $result = null, $requireAll = false){
             \Laratrust\Laratrust::routeNeedsRoleOrPermission($route, $roles, $permissions, $result, $requireAll);
+        }
+        
+    }
+
+
+    class Searchy extends \TomLingham\Searchy\Facades\Searchy{
+        
+        /**
+         * 
+         *
+         * @param $searchable
+         * @return $this 
+         * @static 
+         */
+        public static function search($searchable){
+            return \TomLingham\Searchy\SearchBuilder::search($searchable);
+        }
+        
+        /**
+         * 
+         *
+         * @return \TomLingham\Searchy\FuzzySearchDriver 
+         * @static 
+         */
+        public static function fields(){
+            return \TomLingham\Searchy\SearchBuilder::fields();
+        }
+        
+        /**
+         * 
+         *
+         * @param $driverName
+         * @return $this 
+         * @static 
+         */
+        public static function driver($driverName){
+            return \TomLingham\Searchy\SearchBuilder::driver($driverName);
         }
         
     }

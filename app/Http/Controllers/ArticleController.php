@@ -113,4 +113,15 @@ class ArticleController extends Controller
 
     }
 
+    public function search(){
+        $text = $_GET['text'];
+        if(is_null($text)||empty($text)){
+            return  redirect('/article');
+        }
+        $users = \Searchy::users('name')->query($text)->get();
+        $articles = \Searchy::driver('simple')->articles('title')->query($text)->get();
+        $data = ['u'=>$users,'a'=>$articles,'s'=>$text ];
+        return view('result',compact('data'));
+    }
+
 }

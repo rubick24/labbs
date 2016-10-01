@@ -28,6 +28,7 @@ Route::get('/active',function(){
 });
 
 Route::resource('/article','ArticleController');
+Route::get('/search','ArticleController@search');
 
 Route::post('/comment','CommentController@post');
 Route::delete('/comment/{id}','CommentController@destroy');
