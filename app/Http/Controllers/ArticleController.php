@@ -7,6 +7,7 @@ use App\Category;
 use App\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 use Storage;
 
 class ArticleController extends Controller
@@ -31,8 +32,11 @@ class ArticleController extends Controller
     {
         if(\Auth::guest())
             return redirect('/login');
-        $categorys = Category::all();
-        return view('article.create',compact('categorys'));
+        if(\Auth::user()->hasRole('member')||\Auth::user()->hasRole('owner')){
+            $categorys = Category::all();
+            return view('article.create',compact('categorys'));
+        }
+        else abort(403);
     }
 
     /**
@@ -45,22 +49,25 @@ class ArticleController extends Controller
     {
         if(\Auth::guest())
             return redirect('/login');
-        $this->validate($request, [
-            'title' => 'required|max:255',
-            'content' => 'required',
-            'category' => 'required|exists:categories,id'
-        ]);
-        Storage::put('public/article/'.md5($request->get('title')).'.md',$request->get('content'));
-        //$path = Storage::putFileAs('article', $request->get('content'),md5($request->get('title')).'.md');
-        $article = new Article();
-        $article->title = $request->get('title');
-        $article->user_id = \Auth::user()->id;
-        $article->url = 'public/article/'.md5($article->title).'.md';
-        $article->category_id = $request->get('category');
-        $article->stat = 0;
-        $article->upper = 0;
-        $article->save();
-        return redirect('/article');
+        if(\Auth::user()->hasRole('member')||\Auth::user()->hasRole('owner')) {
+            $this->validate($request, [
+                'title' => 'required|max:255',
+                'content' => 'required',
+                'category' => 'required|exists:categories,id'
+            ]);
+            Storage::put('public/article/' . md5($request->get('title')) . '.md', $request->get('content'));
+            //$path = Storage::putFileAs('article', $request->get('content'),md5($request->get('title')).'.md');
+            $article = new Article();
+            $article->title = $request->get('title');
+            $article->user_id = \Auth::user()->id;
+            $article->url = 'public/article/' . md5($article->title) . '.md';
+            $article->category_id = $request->get('category');
+            $article->stat = 0;
+            $article->upper = 0;
+            $article->save();
+            return redirect('/article');
+        }
+        else abort(403);
     }
 
     /**
@@ -105,16 +112,19 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        foreach (Article::find($id)->comments as $comment){
-            $comment->delete();
+        if(\Auth::id() == Article::find($id)->user_id||\Auth::user()->hasRole('owner')||\Auth::user()->hasRole('admin')){
+            foreach (Article::find($id)->comments as $comment){
+                $comment->delete();
+            }
+            Article::find($id)->delete();
+            return redirect('/article');
         }
-        Article::find($id)->delete();
-        return redirect('/article');
+        else return abort(403);
 
     }
 
     public function search(){
-        $text = $_GET['text'];
+        $text = Input::get('text');
         if(is_null($text)||empty($text)){
             return  redirect('/article');
         }

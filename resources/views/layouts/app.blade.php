@@ -42,15 +42,24 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
 
                 <form method="get" action="{{ url('/search') }}" class="navbar-form navbar-left" role="search">
-                    <div class="form-group-sm" style="padding-top: 3px">
-                        <input name="text" type="text" class="form-control" placeholder="Search">
-                    </div>
+                    <div class="form-group form-group-sm" style="padding-top: 3px">
+                        <div class="input-group input-group-sm">
+                            <input name="text" type="text" class="form-control" placeholder="Search"  autocomplete="off">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div>
+                      </div>
                 </form>
+
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     &nbsp;
                     <li><a href="{{ url('/article') }}">Article</a></li>
                     <li><a href="{{ url('/category') }}">Category</a></li>
+                    @if(Auth::user()->hasRole('owner'))
+                        <li><a href="{{ url('/owner') }}">Dashboard</a></li>
+                    @endif
                 </ul>
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
@@ -66,21 +75,9 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{{ url('/user/'.Auth::user()->id) }}">
-                                        Profile
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('/messages') }}">
-                                        Messages
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ url('/settings') }}">
-                                        Settings
-                                    </a>
-                                </li>
+                                <li><a href="{{ url('/user/'.Auth::user()->id) }}">Profile</a></li>
+                                <li><a href="{{ url('/messages') }}">Messages</a></li>
+                                <li><a href="{{ url('/settings') }}">Settings</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li>
                                     <a href="{{ url('/logout') }}"
@@ -88,7 +85,6 @@
                                                  document.getElementById('logout-form').submit();">
                                         Logout
                                     </a>
-
                                     <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
@@ -100,14 +96,14 @@
             </div>
         </div>
     </nav>
-    <div style="min-height: 400px">
+    <div style="min-height: 500px;padding-bottom: 50px">
         @yield('content')
-
     </div>
 
 
-    <div style="background: #444;height: 160px;width: 100%;color: #dddddd;text-align: center" >
-        <p style="padding: 40px 0">Hand crafted with love by me</p>
+    <div style="height: 160px;width: 100%;text-align: center" >
+        <hr>
+        <p style="padding: 24px 0">Hand crafted with love by me</p>
     </div>
 
     <!-- Scripts -->

@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 
 class OwnerController extends Controller
 {
@@ -21,5 +22,28 @@ class OwnerController extends Controller
     public function manageUser(){
         $users = User::paginate(10);
         return view('owner.manageUser',compact('users'));
+    }
+
+    public function toggle(){
+        $user = User::find(Input::get('id'));
+        if($user->hasRole('member')){
+            $user->roles()->detach(3);
+            $user->detachRole(3);
+        }
+        else {
+            $user->attachRole(3);
+        }
+        return redirect()->back();
+    }
+
+    public function adminToggle(){
+        $user = User::find(Input::get('id'));
+        if($user->hasRole('admin')){
+            $user->roles()->detach(2);
+            $user->detachRole(2);
+        }
+        else {
+            $user->attachRole(2);
+        }
     }
 }

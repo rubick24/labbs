@@ -16,16 +16,6 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/active',function(){
-    $user = \App\User::find($_GET['id']);
-    if($user->token==$_GET['token']){
-        $user->status = 1;
-        $user->save();
-        $user->roles()->attach(3);
-        return redirect('/article');
-    }
-    else echo '激活失败';
-});
 
 Route::resource('/article','ArticleController');
 Route::get('/search','ArticleController@search');
@@ -38,7 +28,7 @@ Route::get('/category','CategoryController@index');
 
 Route::get('/user/{id}','UserController@user');
 Route::post('/user/{id}/avatar','UserController@avatar');
-
+Route::get('/active','UserController@active');
 Route::get('/settings','UserController@settings');
 Route::get('/messages','UserController@messages');
 
@@ -50,6 +40,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|owner']], functi
 Route::group(['prefix' => 'owner', 'middleware' => ['role:owner']], function() {
     Route::get('/', 'OwnerController@index');
     Route::get('/user','OwnerController@manageUser');
+    Route::get('/user/toggle','OwnerController@toggle');
+    Route::get('/user/adminToggle','OwnerController@adminToggle');
     //Route::get('/article','OwnerController@manageArticle');
     //Route::get('/log');
 });

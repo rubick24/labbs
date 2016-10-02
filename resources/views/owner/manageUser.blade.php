@@ -17,7 +17,6 @@
                     <th>Avatar</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>profile</th>
                     <td>Create-post</td>
                     <td>Delete</td>
                 </tr>
@@ -25,15 +24,24 @@
                     <tr>
                         <td>{{ $user->id }}</td>
                         <td><img src="{{ asset('storage/'.$user->avatar) }}" style="width: 28px;height: 28px"></td>
-                        <td>{{ $user->name }}</td>
+                        <td><a href="{{ url('user/'.$user->id) }}" target="_blank">{{ $user->name }}</a></td>
                         <td>{{ $user->email }}</td>
-                        <td><a href="{{ url('user/'.$user->id) }}" target="_blank"><span class="glyphicon glyphicon-new-window"></span></a></td>
                         <td>
-                            @if($user->can('create-post'))
-                                <span class="glyphicon glyphicon-ok"></span>
-                            @else
-                                <button class="btn btn-info btn-sm">授权</button>
-                            @endif
+                            <form class="form-inline" action="{{ url('/owner/user/toggle') }}">
+                                <input title="id" name="id" style="display: none" value="{{  $user->id }}">
+                                    @if(!$user->hasRole('owner'))
+                                        <button class="btn btn-sm" type="submit">
+                                            @if($user->hasRole('member'))
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            @else
+                                                <span class="glyphicon glyphicon-ban-circle"></span>
+                                            @endif
+                                        </button>
+                                    @else
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    @endif
+
+                            </form>
                         </td>
                         <td>
                             @if(!$user->hasRole('owner'))

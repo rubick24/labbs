@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
 use Auth;
+use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
@@ -15,6 +16,18 @@ class UserController extends Controller
             return view('user.profile')->withUser(User::find($id));
         }
         else return redirect('article');
+    }
+
+    public function active(){
+
+        $user = \App\User::find(Input::get('id'));
+        if($user->token==Input::get('token')){
+            $user->status = 1;
+            $user->save();
+            $user->roles()->attach(3);
+            return redirect('/article');
+        }
+        else echo '激活失败';
     }
 
     public function avatar(Request $request,$id){
