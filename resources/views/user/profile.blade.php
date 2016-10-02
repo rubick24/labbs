@@ -6,16 +6,17 @@
         <div class="col-xs-12 col-md-4" style="padding-bottom: 30px">
             <img src="{{ asset('storage/'.$user->avatar)}}" style="width: 150px;height: 150px; display: block;margin: 0 auto">
             <h3>{{$user->name}}</h3>
+            @if(!is_null($user->bio))
+                <p>{{ $user->bio }}</p>
+            @endif
             @if(Auth::check()&&Auth::id()==$user->id)
                 <a href="{{ url('/settings') }}">Edit profile</a>
             @endif
             <hr>
             <p><span class="glyphicon glyphicon-envelope" style="color: #888"></span> <a href="mailto:{{$user->email}}"> {{$user->email}}</a></p>
-            @if(!is_null($user->bio))
-                <p>{{ $user->bio }}</p>
-            @endif
+
             @if(!is_null($user->site))
-                <p><span class="glyphicon glyphicon-link" style="color: #888"></span> <a href="{{ $user->site }}"> {{ $user->site }}</a></p>
+                <p><span class="glyphicon glyphicon-link" style="color: #888"></span> <a href="{{ $user->site }}" target="_blank"> {{ $user->site }}</a></p>
             @endif
             <p> <span class="glyphicon glyphicon-time" style="color: #888"></span>  Joined on {{$user->created_at}}</p>
         </div>

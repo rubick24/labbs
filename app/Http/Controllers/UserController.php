@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Input;
 class UserController extends Controller
 {
     public function user($id){
-        if(User::find($id)){
+        if(User::find($id)&&User::find($id)->status==1){
             return view('user.profile')->withUser(User::find($id));
         }
         else return redirect('article');
@@ -42,6 +42,24 @@ class UserController extends Controller
         $user->avatar = substr($path,7);
         $user->save();
         return redirect()->back();
+    }
+
+    public function update(Request $request,$id){
+        if($id!=Auth::id()){
+            return redirect('/');
+        }
+        $this->validate($request,[
+            'name'=> 'required|max:255',
+            'bio' => 'string',
+            'url'=> 'max:255',
+        ]);
+        $user= Auth::user();
+        $user->name = $request->get('name');
+        $user->bio  = $request->get('bio');
+        $user->site = $request->get('url');
+        $user->save();
+        return redirect('/user/'.$id);
+
     }
 
     public function settings(){

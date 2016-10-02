@@ -134,4 +134,5 @@ class ArticleController extends Controller
         return view('result',compact('data'));
     }
 
+
 }

@@ -57,7 +57,7 @@
                     &nbsp;
                     <li><a href="{{ url('/article') }}">Article</a></li>
                     <li><a href="{{ url('/category') }}">Category</a></li>
-                    @if(Auth::user()->hasRole('owner'))
+                    @if(Auth::check()&&Auth::user()->hasRole('owner'))
                         <li><a href="{{ url('/owner') }}">Dashboard</a></li>
                     @endif
                 </ul>

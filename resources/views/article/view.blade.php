@@ -21,7 +21,7 @@
                             <span class="label label-info">{{ $tag->name }}</span>
                         @endforeach
                     </p>
-                    @if(Auth::id() ==$article->user_id||Auth::user()->hasRole('owner')||Auth::user()->hasRole('admin'))
+                    @if(Auth::check()&&(Auth::id() ==$article->user_id||Auth::user()->hasRole('owner')||Auth::user()->hasRole('admin')))
                         <form action="{{ url('/article/'.$article->id) }}" method="POST" style="display: inline;">
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}
@@ -48,7 +48,7 @@
                                 <p><span style="color: #aaaaaa">posted at</span> {{ $comment->created_at }} </p>
                                 {{ $comment->content }}
                             </div>
-                            @if(Auth::id() ==$comment->user->id||Auth::user()->hasRole('owner')||Auth::user()->hasRole('admin'))
+                            @if(Auth::check()&& (Auth::id() ==$comment->user->id||Auth::user()->hasRole('owner')||Auth::user()->hasRole('admin')))
                                 <form action="{{ url('/comment/'.$comment->id) }}" method="POST" style="display: inline;">
                                     {{ method_field('DELETE') }}
                                     {{ csrf_field() }}

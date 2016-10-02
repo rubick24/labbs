@@ -28,8 +28,10 @@ Route::get('/category','CategoryController@index');
 
 Route::get('/user/{id}','UserController@user');
 Route::post('/user/{id}/avatar','UserController@avatar');
+Route::post('/user/{id}/update','UserController@update');
 Route::get('/active','UserController@active');
 Route::get('/settings','UserController@settings');
+
 Route::get('/messages','UserController@messages');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|owner']], function() {
