@@ -45,5 +45,16 @@ class OwnerController extends Controller
         else {
             $user->attachRole(2);
         }
+        return redirect()->back();
+    }
+
+    public function searchUser(){
+        $text = Input::get('text');
+        if(is_null($text)||empty($text)){
+            return  redirect('/owner/user');
+        }
+        $users = \Searchy::users('name')->query($text)->get();;
+        $data = ['u'=>$users,'s'=>$text ];
+        return view('owner.userResult',compact('data'));
     }
 }

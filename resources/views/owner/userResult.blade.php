@@ -11,15 +11,12 @@
                     <form method="get" action="{{ url('/owner/user/search') }}" role="search">
                         <div class="form-group">
                             <div class="input-group">
-                                <input name="text" type="text" class="form-control" placeholder="Search User"  autocomplete="off">
+                                <input value="{{  $data['s'] }}" name="text" type="text" class="form-control" placeholder="Search User"  autocomplete="off">
                                 <span class="input-group-btn">
                                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                             </span>
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <button class="btn btn-default">未审核</button>
+                            </div>
                         </div>
 
                     </form>
@@ -35,7 +32,10 @@
                     <th>Admin</th>
                     <th>Delete</th>
                 </tr>
-                @foreach($users as $user)
+                @foreach($data['u'] as $u)
+                    <?php
+                        $user = App\User::find($u->id)
+                    ?>
                     <tr>
                         <td>{{ $user->id }}</td>
                         <td><img src="{{ asset('storage/'.$user->avatar) }}" style="width: 28px;height: 28px"></td>
@@ -44,17 +44,17 @@
                         <td>
                             <form class="form-inline" action="{{ url('/owner/user/toggle') }}">
                                 <input title="id" name="id" style="display: none" value="{{  $user->id }}">
-                                    @if(!$user->hasRole('owner'))
-                                        <button class="btn btn-sm btn-default" type="submit">
-                                            @if($user->hasRole('member'))
-                                                <span class="glyphicon glyphicon-check"></span>
-                                            @else
-                                                <span class="glyphicon glyphicon-unchecked"></span>
-                                            @endif
-                                        </button>
-                                    @else
-                                        <span class="glyphicon glyphicon-check"></span>
-                                    @endif
+                                @if(!$user->hasRole('owner'))
+                                    <button class="btn btn-sm btn-default" type="submit">
+                                        @if($user->hasRole('member'))
+                                            <span class="glyphicon glyphicon-check"></span>
+                                        @else
+                                            <span class="glyphicon glyphicon-unchecked"></span>
+                                        @endif
+                                    </button>
+                                @else
+                                    <span class="glyphicon glyphicon-check"></span>
+                                @endif
 
                             </form>
                         </td>
@@ -76,15 +76,14 @@
                             </form>
                         </td>
                         <td>
-                            @if(!$user->hasRole('owner'))
-                            <button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button>
+                            @if(!App\User::find($user->id)->hasRole('owner'))
+                                <button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button>
                             @endif
                         </td>
                     </tr>
 
                 @endforeach
             </table>
-            {{ $users->links() }}
         </div>
     </div>
 </div>

@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-4">
                             <div  class="thumbnail">
-                                <a href="{{ url('/owner/user') }}" style="text-decoration: none;display: inline-flex;padding: 20px">
+                                <a href="{{ url('/owner/user') }}" style="width: 100%;text-decoration: none;display: inline-flex;padding: 20px">
                                     <span style="font-size: 50px;display: inline-block;" class="glyphicon glyphicon-user"></span>
                                     <p style="display: inline-block;padding: 10px 20px 0 25px;font-size: 20px;font-family:'Microsoft YaHei UI',sans-serif">用户管理</p>
                                 </a>
@@ -20,7 +20,7 @@
 
                         <div class="col-xs-12 col-sm-6 col-md-4">
                             <div  class="thumbnail">
-                                <a href="{{ url('/owner/') }}" style="text-decoration: none;display: inline-flex;padding: 20px">
+                                <a href="{{ url('/owner/') }}" style="width: 100%;text-decoration: none;display: inline-flex;padding: 20px">
                                     <span style="font-size: 50px;display: inline-block;" class="glyphicon glyphicon-list-alt"></span>
                                     <p style="display: inline-block;padding: 10px 20px 0 25px;font-size: 20px;font-family:'Microsoft YaHei UI',sans-serif">文章管理</p>
                                 </a>
@@ -29,7 +29,7 @@
 
                         <div class="col-xs-12 col-sm-6 col-md-4">
                             <div class="thumbnail">
-                                <a href="{{ url('/owner/') }}" style="text-decoration: none;display: inline-flex;padding: 20px">
+                                <a href="{{ url('/owner/') }}" style="width: 100%;text-decoration: none;display: inline-flex;padding: 20px">
                                     <span style="font-size: 50px;display: inline-block;" class="glyphicon glyphicon-comment"></span>
                                     <p style="display: inline-block;padding: 10px 20px 0 25px;font-size: 20px;font-family:'Microsoft YaHei UI',sans-serif">发布公告</p>
                                 </a>
@@ -38,8 +38,8 @@
 
                         <div class="col-xs-12 col-sm-6 col-md-4">
                             <div class="thumbnail">
-                                <a href="{{ url('/owner/') }}" style="text-decoration: none;display: inline-flex;padding: 20px">
-                                    <span style="font-size: 50px;display: inline-block;" class="glyphicon glyphicon-calendar"></span>
+                                <a href="{{ url('/owner/') }}" style="width: 100%;text-decoration: none;display: inline-flex;padding: 20px">
+                                    <span style="font-size: 50px;display: inline-block;" class="glyphicon glyphicon-bullhorn"></span>
                                     <p style="display: inline-block;padding: 10px 20px 0 25px;font-size: 20px;font-family:'Microsoft YaHei UI',sans-serif">查看日志</p>
                                 </a>
                             </div>

@@ -44,6 +44,7 @@ Route::group(['prefix' => 'owner', 'middleware' => ['role:owner']], function() {
     Route::get('/user','OwnerController@manageUser');
     Route::get('/user/toggle','OwnerController@toggle');
     Route::get('/user/adminToggle','OwnerController@adminToggle');
+    Route::get('/user/search','OwnerController@searchUser');
     //Route::get('/article','OwnerController@manageArticle');
     //Route::get('/log');
 });
