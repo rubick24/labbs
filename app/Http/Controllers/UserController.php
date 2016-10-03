@@ -15,7 +15,7 @@ class UserController extends Controller
         if(User::find($id)&&User::find($id)->status==1){
             return view('user.profile')->withUser(User::find($id));
         }
-        else return redirect('article');
+        else return redirect()->back();
     }
 
     public function active(){
@@ -31,8 +31,11 @@ class UserController extends Controller
     }
 
     public function avatar(Request $request,$id){
-        if($id!=Auth::id()){
-            return redirect()->back();
+        if(Auth::guest()){
+            return redirect('login');
+        }
+        if($id!=Auth::id()||Auth::user()->status!=1){
+            return abort(403);
         }
         $this->validate($request,[
             'avatar'  =>  'required|image'
@@ -45,8 +48,11 @@ class UserController extends Controller
     }
 
     public function update(Request $request,$id){
-        if($id!=Auth::id()){
-            return redirect('/');
+        if(Auth::guest()){
+            return redirect('login');
+        }
+        if($id!=Auth::id()||Auth::user()->status!=1){
+            return abort(403);
         }
         $this->validate($request,[
             'name'=> 'required|max:255',
@@ -63,15 +69,16 @@ class UserController extends Controller
     }
 
     public function settings(){
-        if(Auth::check()){
+        if(Auth::check()&&Auth::user()->status==1){
             return view('user.settings')->withUser(Auth::user());
         }
         else return redirect('login');
     }
 
     public function messages(){
-        if (Auth::check()){
+        if (Auth::check()&&Auth::user()->status==1){
             return view('user.messages')->withUser(Auth::user());
         }
+        else return abort(403);
     }
 }

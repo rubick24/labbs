@@ -11,6 +11,32 @@ class User extends Authenticatable
     use LaratrustUserTrait;
     use Notifiable;
 
+    /**
+     * scope
+     */
+    public function scopeVerified($query,$type=true)
+    {
+        return $query->where('status', $type);
+    }
+
+    public static function unratified(){
+        $result = [];
+        $i=0;
+        foreach (User::verified()->get() as $user ){
+            if ($user->hasRole('member')||$user->hasRole('owner')){
+                ;
+            }
+            else {
+                $result[$i] = $user;
+                $i++;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * relations
+     */
     public function articles(){
         return $this->hasMany('App\Article');
     }

@@ -13,6 +13,9 @@ class CommentController extends Controller
     public function post(Request $request){
         if(\Auth::guest())
             return redirect('/login');
+        if(Auth::user()->status!=1){
+            return abort(403);
+        }
         $this->validate($request, [
             'comment' => 'required',
             'article' => 'required|exists:articles,id'

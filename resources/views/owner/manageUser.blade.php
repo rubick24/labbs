@@ -17,12 +17,13 @@
                             </span>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <button class="btn btn-default">未审核</button>
-                        </div>
-
                     </form>
+                    <div class="form-group">
+                        <a href="{{ url('owner/user') }}" class="btn btn-default active">所有用户</a>
+                        <a href="{{ url('owner/user/unratified') }}" class="btn btn-default">未批准</a>
+                        <a href="{{ url('owner/user/admin') }}" class="btn btn-default">管理员</a>
+                    </div>
+
                 </div>
             </div>
             <table class="table">
@@ -45,13 +46,21 @@
                             <form class="form-inline" action="{{ url('/owner/user/toggle') }}">
                                 <input title="id" name="id" style="display: none" value="{{  $user->id }}">
                                     @if(!$user->hasRole('owner'))
-                                        <button class="btn btn-sm btn-default" type="submit">
-                                            @if($user->hasRole('member'))
-                                                <span class="glyphicon glyphicon-check"></span>
+                                        @if($user->hasRole('member'))
+                                            @if($user->hasRole('admin'))
+                                                <button class="btn btn-sm btn-default disabled" type="submit">
+                                                    <span class="glyphicon glyphicon-check"></span>
+                                                </button>
                                             @else
-                                                <span class="glyphicon glyphicon-unchecked"></span>
+                                                <button class="btn btn-sm btn-default" type="submit">
+                                                    <span class="glyphicon glyphicon-check"></span>
+                                                </button>
                                             @endif
-                                        </button>
+                                        @else
+                                            <button class="btn btn-sm btn-default" type="submit">
+                                                <span class="glyphicon glyphicon-unchecked"></span>
+                                            </button>
+                                        @endif
                                     @else
                                         <span class="glyphicon glyphicon-check"></span>
                                     @endif
@@ -62,13 +71,21 @@
                             <form class="form-inline" action="{{ url('/owner/user/adminToggle') }}">
                                 <input title="id" name="id" style="display: none" value="{{  $user->id }}">
                                 @if(!$user->hasRole('owner'))
-                                    <button class="btn btn-sm btn-default" type="submit">
-                                        @if($user->hasRole('admin'))
+                                    @if($user->hasRole('admin'))
+                                        <button class="btn btn-sm btn-default" type="submit">
                                             <span class="glyphicon glyphicon-check"></span>
+                                        </button>
+                                    @else
+                                        @if($user->hasRole('member'))
+                                            <button class="btn btn-sm btn-default" type="submit">
+                                                <span class="glyphicon glyphicon-unchecked"></span>
+                                            </button>
                                         @else
-                                            <span class="glyphicon glyphicon-unchecked"></span>
+                                            <button class="btn btn-sm btn-default disabled" type="submit">
+                                                <span class="glyphicon glyphicon-unchecked"></span>
+                                            </button>
                                         @endif
-                                    </button>
+                                    @endif
                                 @else
                                     <span class="glyphicon glyphicon-check"></span>
                                 @endif

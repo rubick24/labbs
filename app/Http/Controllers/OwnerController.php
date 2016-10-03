@@ -57,4 +57,33 @@ class OwnerController extends Controller
         $data = ['u'=>$users,'s'=>$text ];
         return view('owner.userResult',compact('data'));
     }
+
+    public function unratified(){
+        $result = [];
+        $i=0;
+        foreach (User::verified()->get() as $user ){
+            if ($user->hasRole('member')||$user->hasRole('owner')){
+                ;
+            }
+            else {
+                $result[$i] = $user;
+                $i++;
+            }
+        }
+        $data = ['u'=>$result,'s'=>'未批准' ];
+        return view('owner.userResult',compact('data'));
+    }
+
+    public function admin(){
+        $result = [];
+        $i=0;
+        foreach (User::verified()->get() as $user ){
+            if ($user->hasRole('admin')){
+                $result[$i] = $user;
+                $i++;
+            }
+        }
+        $data = ['u'=>$result,'s'=>'管理员' ];
+        return view('owner.userResult',compact('data'));
+    }
 }
