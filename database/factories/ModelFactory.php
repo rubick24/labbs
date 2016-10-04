@@ -53,3 +53,11 @@ $factory->define(App\Comment::class,function (Faker\Generator $faker){
         'content'     => $faker->sentences(3,true),
     ];
 });
+
+$factory->define(App\Message::class,function (Faker\Generator $faker){
+    return [
+        'user_id'     => $faker->numberBetween(1,10),
+        'sender_id'  => $faker->numberBetween(1,10),
+        'content'     => $faker->sentences(3,true),
+    ];
+});

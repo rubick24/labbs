@@ -76,7 +76,11 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/user/'.Auth::user()->id) }}">Profile</a></li>
-                                <li><a href="{{ url('/messages') }}">Messages</a></li>
+                                <li><a href="{{ url('/messages') }}">Messages
+                                        @if(\App\Message::read(Auth::id(),false)->count()!=0)
+                                            <span class="badge">{{ \App\Message::read(Auth::id(),false)->count() }}</span>
+                                        @endif
+                                    </a></li>
                                 <li><a href="{{ url('/settings') }}">Settings</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li>

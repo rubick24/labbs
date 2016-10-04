@@ -32,7 +32,7 @@ Route::post('/user/{id}/update','UserController@update');
 Route::get('/active','UserController@active');
 Route::get('/settings','UserController@settings');
 
-Route::get('/messages','UserController@messages');
+Route::get('/messages','MessageController@index');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|owner']], function() {
     //Route::get('/', 'AdminController@index');

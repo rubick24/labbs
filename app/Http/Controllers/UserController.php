@@ -75,10 +75,4 @@ class UserController extends Controller
         else return redirect('login');
     }
 
-    public function messages(){
-        if (Auth::check()&&Auth::user()->status==1){
-            return view('user.messages')->withUser(Auth::user());
-        }
-        else return abort(403);
-    }
 }

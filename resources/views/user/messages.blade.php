@@ -27,8 +27,24 @@
                     <li><a href="{{ url('settings') }}">Settings</a></li>
                 </ul>
 
-                <div>
-
+                <div class="col-md-12">
+                    <br>
+                    @foreach($messages[0] as $message)
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <p>from <a href="{{ url('user/'.$message['sender_id'] ) }}"> {{\App\Message::find( $message['id'])->sender->name}} </a> at {{ $message['created_at'] }}</p>
+                                <b>{{ $message['content'] }}</b>
+                            </div>
+                        </div>
+                    @endforeach
+                    @foreach($messages[1] as $message)
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <p>from <a href="{{ url('user/'.$message['sender_id'] ) }}"> {{\App\Message::find( $message['id'])->sender->name}} </a> at {{ $message['created_at'] }}</p>
+                                <p>{{ $message['content'] }}</p>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
 
             </div>

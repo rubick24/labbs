@@ -12,29 +12,6 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
-     * scope
-     */
-    public function scopeVerified($query,$type=true)
-    {
-        return $query->where('status', $type);
-    }
-
-    public static function unratified(){
-        $result = [];
-        $i=0;
-        foreach (User::verified()->get() as $user ){
-            if ($user->hasRole('member')||$user->hasRole('owner')){
-                ;
-            }
-            else {
-                $result[$i] = $user;
-                $i++;
-            }
-        }
-        return $result;
-    }
-
-    /**
      * relations
      */
     public function articles(){
@@ -43,6 +20,14 @@ class User extends Authenticatable
 
     public function comments(){
         return $this->hasMany('App\Comment');
+    }
+
+    public function receivedMessages(){
+        return $this->hasMany('App\Message','user_id','id');
+    }
+
+    public function sentMessages(){
+        return $this->hasMany('App\Message','sender_id','id');
     }
 
     public function photos(){
