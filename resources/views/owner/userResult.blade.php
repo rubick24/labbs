@@ -101,7 +101,11 @@
                             </td>
                             <td>
                                 @if(!$user->hasRole('owner'))
-                                    <button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button>
+                                    <form action="{{ url('/owner/user/'.$user->id) }}" method="POST" style="display: inline;">
+                                        {{ method_field('DELETE') }}
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>

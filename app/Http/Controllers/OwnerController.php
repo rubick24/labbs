@@ -62,7 +62,7 @@ class OwnerController extends Controller
     public function unratified(){
         $result = [];
         $i=0;
-        foreach (User::verified()->get() as $user ){
+        foreach (User::where('status',1)->get() as $user ){
             if ($user->hasRole('member')||$user->hasRole('owner')){
                 ;
             }
@@ -78,7 +78,7 @@ class OwnerController extends Controller
     public function admin(){
         $result = [];
         $i=0;
-        foreach (User::verified()->get() as $user ){
+        foreach (User::where('status',1)->get() as $user ){
             if ($user->hasRole('admin')){
                 $result[$i] = $user;
                 $i++;
@@ -86,6 +86,11 @@ class OwnerController extends Controller
         }
         $data = ['u'=>$result,'s'=>'管理员' ];
         return view('owner.userResult',compact('data'));
+    }
+
+    public function deleteUser($id){
+        User::find($id)->delete();
+        return redirect()->back();
     }
 
     public function message(){

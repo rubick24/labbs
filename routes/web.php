@@ -50,6 +50,7 @@ Route::group(['prefix' => 'owner', 'middleware' => ['role:owner']], function() {
     Route::get('/user/search','OwnerController@searchUser');
     Route::get('/user/unratified','OwnerController@unratified');
     Route::get('/user/admin','OwnerController@admin');
+    Route::delete('/user/{id}','OwnerController@deleteUser');
     Route::get('/message','OwnerController@message');
     Route::post('/sendMessage','OwnerController@sendMessage');
     //Route::get('/article','OwnerController@manageArticle');
