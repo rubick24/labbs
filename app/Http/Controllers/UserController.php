@@ -25,6 +25,9 @@ class UserController extends Controller
             $user->status = 1;
             $user->save();
             $user->roles()->attach(3);
+            if(Auth::guest()) {
+                Auth::login($user);
+            }
             return redirect('/article');
         }
         else echo '激活失败';

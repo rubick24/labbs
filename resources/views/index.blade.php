@@ -99,7 +99,7 @@
                 <div class="links">
                     <a href="{{url('/article')}}">Home</a>
                     <span>|</span>
-                    <a href="https://laravel.com/docs" target="_blank">Laravel</a>
+                    <a href="https://laravel.com" target="_blank">Laravel</a>
                     <span>|</span>
                     <a href="https://github.com/deadalusmask/labbs" target="_blank">GitHub</a>
                 </div>

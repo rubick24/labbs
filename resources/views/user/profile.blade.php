@@ -11,6 +11,8 @@
             @endif
             @if(Auth::check()&&Auth::id()==$user->id)
                 <a href="{{ url('/settings') }}">Edit profile</a>
+            @else
+                <a href="{{ url('/message?id='.$user->id) }}" class="btn btn-success" style="width: 100%">Send Message</a>
             @endif
             <hr>
             <p><span class="glyphicon glyphicon-envelope" style="color: #888"></span> <a href="mailto:{{$user->email}}"> {{$user->email}}</a></p>

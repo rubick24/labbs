@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Message;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -85,5 +86,26 @@ class OwnerController extends Controller
         }
         $data = ['u'=>$result,'s'=>'管理员' ];
         return view('owner.userResult',compact('data'));
+    }
+
+    public function message(){
+        return view('owner.message');
+    }
+
+    public function sendMessage(Request $request){
+        $this->validate($request, [
+            'content' => 'required',
+        ]);
+        $sender =  \Auth::id();
+
+        foreach ( User::all() as $user ){
+            $message = new Message();
+            $message ->user_id = $user->id;
+            $message ->sender_id = $sender;
+            $message ->content = $request->get('content');
+            $message ->save();
+        }
+
+        return redirect('/owner');
     }
 }

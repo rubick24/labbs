@@ -29,10 +29,13 @@ Route::get('/category','CategoryController@index');
 Route::get('/user/{id}','UserController@user');
 Route::post('/user/{id}/avatar','UserController@avatar');
 Route::post('/user/{id}/update','UserController@update');
-Route::get('/active','UserController@active');
 Route::get('/settings','UserController@settings');
+Route::get('/check',function (){return view('user.check');});
+Route::get('/active','UserController@active');
 
 Route::get('/messages','MessageController@index');
+Route::get('/message','MessageController@create');
+Route::post('/sendMessage','MessageController@send');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin|owner']], function() {
     //Route::get('/', 'AdminController@index');
@@ -47,6 +50,8 @@ Route::group(['prefix' => 'owner', 'middleware' => ['role:owner']], function() {
     Route::get('/user/search','OwnerController@searchUser');
     Route::get('/user/unratified','OwnerController@unratified');
     Route::get('/user/admin','OwnerController@admin');
+    Route::get('/message','OwnerController@message');
+    Route::post('/sendMessage','OwnerController@sendMessage');
     //Route::get('/article','OwnerController@manageArticle');
     //Route::get('/log');
 });

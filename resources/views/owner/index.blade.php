@@ -29,8 +29,8 @@
 
                         <div class="col-xs-12 col-sm-6 col-md-4">
                             <div class="thumbnail">
-                                <a href="{{ url('/owner/') }}" style="width: 100%;text-decoration: none;display: inline-flex;padding: 20px">
-                                    <span style="font-size: 50px;display: inline-block;" class="glyphicon glyphicon-comment"></span>
+                                <a href="{{ url('/owner/message') }}" style="width: 100%;text-decoration: none;display: inline-flex;padding: 20px">
+                                    <span style="font-size: 50px;display: inline-block;" class="glyphicon glyphicon-bullhorn"></span>
                                     <p style="display: inline-block;padding: 10px 20px 0 25px;font-size: 20px;font-family:'Microsoft YaHei UI',sans-serif">发布公告</p>
                                 </a>
                             </div>
@@ -39,7 +39,7 @@
                         <div class="col-xs-12 col-sm-6 col-md-4">
                             <div class="thumbnail">
                                 <a href="{{ url('/owner/') }}" style="width: 100%;text-decoration: none;display: inline-flex;padding: 20px">
-                                    <span style="font-size: 50px;display: inline-block;" class="glyphicon glyphicon-bullhorn"></span>
+                                    <span style="font-size: 50px;display: inline-block;" class="glyphicon glyphicon-calendar"></span>
                                     <p style="display: inline-block;padding: 10px 20px 0 25px;font-size: 20px;font-family:'Microsoft YaHei UI',sans-serif">查看日志</p>
                                 </a>
                             </div>

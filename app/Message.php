@@ -18,12 +18,12 @@ class Message extends Model
         //$messages = \DB::table('messages')->where('user_id',$id);
         //$messages = \DB::table('messages')->where('sender_id',$id)->union($messages)->orderBy('created_at','id')->get();
         //$messages = \DB::select('select * from messages where user_id = ? or sender_id = ?', [$id,$id]);
-        $messages = \DB::table('messages')->where('user_id',$id)->orWhere('sender_id',$id)->orderBy('created_at','id')->get();
+        $messages = \DB::table('messages')->where('user_id',$id)->orWhere('sender_id',$id)->orderBy('created_at','desc')->get();
         return $messages;
     }
 
     public static function read($id,$true=true){
-        return Message::where('user_id',$id)->where('read',$true)->get();
+        return Message::where('user_id',$id)->where('read',$true)->orderBy('created_at','desc')->get();
     }
 
 }
