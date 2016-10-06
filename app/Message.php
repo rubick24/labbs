@@ -23,7 +23,7 @@ class Message extends Model
     }
 
     public static function read($id,$true=true){
-        return Message::where('user_id',$id)->where('read',$true)->orderBy('created_at','desc')->get();
+        return Message::where('user_id',$id)->where('read',$true)->orderBy('created_at','desc')->take(5)->get();
     }
 
 }

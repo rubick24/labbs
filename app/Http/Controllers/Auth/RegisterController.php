@@ -63,7 +63,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -71,6 +70,7 @@ class RegisterController extends Controller
             'token'    => str_random(),
         ]);
         \Mail::to($data['email'])->send(new Welcome($user));
+        \Log::info('New user registed',['id'=>$user->id,'email'=>$user->email ]);
         return $user;
     }
 }

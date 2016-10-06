@@ -42,6 +42,11 @@ class MessageController extends Controller
         $message -> sender_id = \Auth::id();
         $message ->content = $request->get('content');
         $message ->save();
+        \Log::info('New message',[
+            'receive_id'=>$message -> user_id,
+            'sender_id'=>$message -> sender_id,
+            'content'=>$message ->content,
+        ]);
         return redirect('/user/'.$request->get('id'));
     }
 }

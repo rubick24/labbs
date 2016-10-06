@@ -25,14 +25,28 @@ class CommentController extends Controller
         $comment->user_id = \Auth::id();
         $comment->content = $request->get('comment');
         $comment->save();
+        \Log::info('New Comment',[
+            'comment_id'=>$comment->id,
+            'user_id'=>$comment->user_id,
+            'article_id'=>$comment->article_id,
+            'content' => $comment->content,
+        ]);
         return redirect('/article/'.$request->get('article'));
     }
 
     public function destroy($id){
         if(\Auth::id() ==Comment::find($id)->user->id||\Auth::user()->hasRole('owner')||\Auth::user()->hasRole('admin')){
-            Comment::find($id)->delete();
+            $comment =Comment::find($id);
+            \Log::notice('Delete comment',[
+                'comment_id'=>$comment->id,
+                'user_id'=>$comment->user_id,
+                'article_id'=>$comment->article_id,
+                'content' => $comment->content,
+            ]);
+            $comment->delete();
             return redirect()->back();
         }
+
 
     }
 }

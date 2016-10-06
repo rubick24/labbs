@@ -19,7 +19,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::paginate(6);
+        $articles = Article::orderBy('created_at','desc')->paginate(6);
         return view('article.index',compact('articles'));
     }
 
@@ -65,7 +65,8 @@ class ArticleController extends Controller
             $article->stat = 0;
             $article->upper = 0;
             $article->save();
-            return redirect('/article');
+            \Log::info('New article created',['article_id'=>$article->id,'user_id'=>$article->user_id]);
+            return redirect('/article/'.$article->id);
         }
         else abort(403);
     }
@@ -120,6 +121,7 @@ class ArticleController extends Controller
                 $comment->delete();
             }
             Article::find($id)->delete();
+            \Log::notice('Article Deleted (with its comments)',['article_id'=>$id]);
             return redirect('/article');
         }
         else return abort(403);
@@ -134,6 +136,9 @@ class ArticleController extends Controller
         $users = \Searchy::users('name')->query($text)->get();
         $articles = \Searchy::driver('simple')->articles('title')->query($text)->get();
         $data = ['u'=>$users,'a'=>$articles,'s'=>$text ];
+        if(\Auth::check()){
+            \Log::info('Search record',['user_id'=>\Auth::id(),'text'=>$text]);
+        }
         return view('result',compact('data'));
     }
 

@@ -28,6 +28,7 @@ class UserController extends Controller
             if(Auth::guest()) {
                 Auth::login($user);
             }
+            \Log::info('User actived',['id'=>$user->id,'email'=>$user->email ]);
             return redirect('/article');
         }
         else echo '激活失败';
@@ -47,6 +48,7 @@ class UserController extends Controller
         $user = Auth::user();
         $user->avatar = substr($path,7);
         $user->save();
+        \Log::info('Avatar update',['user_id'=>$user->id,'avatar'=>$user->avatar]);
         return redirect()->back();
     }
 
@@ -67,8 +69,11 @@ class UserController extends Controller
         $user->bio  = $request->get('bio');
         $user->site = $request->get('url');
         $user->save();
+        \Log::info('Profile update',[
+            'user_id'=>$user->id,
+            'name'=>$user->name,
+        ]);
         return redirect('/user/'.$id);
-
     }
 
     public function settings(){

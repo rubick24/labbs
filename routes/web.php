@@ -53,6 +53,7 @@ Route::group(['prefix' => 'owner', 'middleware' => ['role:owner']], function() {
     Route::delete('/user/{id}','OwnerController@deleteUser');
     Route::get('/message','OwnerController@message');
     Route::post('/sendMessage','OwnerController@sendMessage');
+    Route::get('/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     //Route::get('/article','OwnerController@manageArticle');
-    //Route::get('/log');
+
 });
