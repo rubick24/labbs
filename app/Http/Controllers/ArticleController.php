@@ -78,7 +78,10 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        return view('article.view')->withArticle(Article::find($id));
+        if(Article::find($id)){
+            return view('article.view')->withArticle(Article::find($id));
+        }
+        else abort(404);
     }
 
     /**

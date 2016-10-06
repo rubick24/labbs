@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use App\Category;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,8 @@ class CategoryController extends Controller
 
     public function detail($name){
         $category = Category::where('name',$name)->first();
-        return view('category.detail',compact('category'));
+        $articles = Article::where('category_id',$category->id)->paginate(6);
+        $data = ['c'=>$category,'a'=>$articles];
+        return view('category.detail',compact('data'));
     }
 }

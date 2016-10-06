@@ -8,13 +8,13 @@
                 <div class="panel-body">
                     <div >
                         <h4>
-                            Category : {{ $category->name }} <span class="badge" style="font-family: 'Lato', sans-serif"> {{ $category->articles->count() }} </span>
+                            Category : {{ $data['c']->name }} <span class="badge" style="font-family: 'Lato', sans-serif"> {{ $data['c']->articles->count() }} </span>
                         </h4>
                         <a href="{{ url('/category') }}" class="pull-right"> 返回列表 </a>
                     </div>
                 </div>
             </div>
-            @foreach($category->articles as $article)
+            @foreach($data['a'] as $article)
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <a href="{{ url('article/'.$article->id) }}" style="text-decoration: none">
@@ -37,7 +37,7 @@
                 </div>
 
             @endforeach
-
+            {{ $data['a']->links() }}
         </div>
     </div>
 </div>

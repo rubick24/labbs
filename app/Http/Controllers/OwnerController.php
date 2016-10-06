@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
+use App\Comment;
 use App\Message;
 use App\User;
 use Illuminate\Http\Request;
@@ -89,6 +91,16 @@ class OwnerController extends Controller
     }
 
     public function deleteUser($id){
+
+        foreach (Article::where('user_id',$id)->get() as $article){
+            $article->delete();
+        }
+        foreach (Comment::where('user_id',$id)->get() as $comment){
+            $comment->delete();
+        }
+        foreach (Message::where('user_id',$id)->orWhere('sender_id',$id)->get() as $message){
+            $message->delete();
+        }
         User::find($id)->delete();
         return redirect()->back();
     }
