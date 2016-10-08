@@ -36,9 +36,11 @@ $factory->define(App\Category::class,function (Faker\Generator $faker){
 });
 
 $factory->define(App\Article::class,function (Faker\Generator $faker){
+    $user_ids = \App\User::lists('id')->toArray();
+    $category_ids = \App\Category::lists('id')->toArray();
     return [
-        'user_id'     => $faker->numberBetween(1,15),
-        'category_id' => $faker->numberBetween(1,4),
+        'user_id'     => $faker->randomElement($user_ids),
+        'category_id' => $faker->randomElement($category_ids),
         'title'       => $faker->sentence(),
         'url'         => 'public/article/markdown.md',
         'stat'        => 0,
@@ -47,17 +49,20 @@ $factory->define(App\Article::class,function (Faker\Generator $faker){
 });
 
 $factory->define(App\Comment::class,function (Faker\Generator $faker){
+    $article_ids = \App\Article::lists('id')->toArray();
+    $user_ids = \App\User::lists('id')->toArray();
     return [
-        'article_id'  => $faker->numberBetween(1,50),
-        'user_id'     => $faker->numberBetween(1,15),
+        'article_id'  => $faker->randomElement($article_ids),
+        'user_id'     => $faker->randomElement($user_ids),
         'content'     => $faker->sentences(3,true),
     ];
 });
 
 $factory->define(App\Message::class,function (Faker\Generator $faker){
+    $user_ids = \App\User::lists('id')->toArray();
     return [
-        'user_id'     => $faker->numberBetween(1,10),
-        'sender_id'  => $faker->numberBetween(1,10),
+        'user_id'     => $faker->randomElement($user_ids),
+        'sender_id'  => $faker->randomElement($user_ids),
         'content'     => $faker->sentences(3,true),
     ];
 });
