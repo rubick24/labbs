@@ -11,16 +11,16 @@
    - 管理用户（设为管理员/禁言）(搜索列表/分类查看)
    - 发布公告
    - 查看日志
++ pjax;
 
 未完成的部分:
-
 - admin  文章管理(审核/加精/置顶及取消);
 - Photo model {id,name,url} 文章中图片资源的上传使用;
 - article  edit;
 - side.blade.php 侧边栏组件;
 - category&tag的新增;
 - markdown的xss预防;
-- pjax;
+
 
 大概就这些了吧。。。（逃
 
@@ -32,6 +32,7 @@
 `# cp .env.example .env` 
 
 然后编辑`.env`填下配置，对了还有`app/mail.php`。。
+
 `# php artisan migrate`
 
 `# php artisan serve` 访问localhost:8000创建owner用户;
@@ -43,7 +44,8 @@
 。。然后就没啥了吧
 
 假数据的话modelfactory写好了方法，比如
-`> factory(App\User::class,10)->create` //创建10个测试用户
+
+`> factory(App\User::class,10)->create()` //创建10个测试用户
 
 
 ## Based On Laravel PHP framework

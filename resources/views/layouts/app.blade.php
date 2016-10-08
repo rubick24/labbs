@@ -4,24 +4,42 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
-
+    <link href=" {{ asset('/css/app.css') }}" rel="stylesheet">
+    <link rel='stylesheet' href="{{ asset('css/nprogress.css') }}"/>
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+    <!-- Scripts -->
+    <script src="{{ asset('/js/app.js') }}"></script>
+    <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="{{ asset('/js/njquery.pjax.js') }}"></script>
+    <script src="{{ asset('/js/nprogress.js') }}"></script>
+    <script>
+        $(document).ready(function()
+        {
+            $(document).pjax('a', 'body');
+
+            $(document).on('pjax:start', function() {
+                NProgress.start();
+            });
+            $(document).on('pjax:end', function() {
+                NProgress.done();
+//                self.siteBootUp();
+            });
+        });
+    </script>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-default navbar-static-top" style="margin-bottom: 0">
         <div class="container">
             <div class="navbar-header">
 
@@ -100,7 +118,7 @@
             </div>
         </div>
     </nav>
-    <div style="min-height: 500px;padding-bottom: 50px">
+    <div style="min-height: 350px;padding: 25px 0">
         @yield('content')
     </div>
 
@@ -109,8 +127,3 @@
         <hr>
         <p style="padding: 24px 0">Hand crafted with love by me</p>
     </div>
-
-    <!-- Scripts -->
-    <script src="/js/app.js"></script>
-</body>
-</html>

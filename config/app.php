@@ -172,6 +172,7 @@ return [
         TomLingham\Searchy\SearchyServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
+
         /*
          * Application Service Providers...
          */
