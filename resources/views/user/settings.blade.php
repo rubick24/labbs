@@ -31,11 +31,11 @@
                     <br>
                     <form class="form-inline" action="{{ url('user/'.Auth::id().'/avatar') }}" method="POST"  enctype="multipart/form-data">
                         {!! csrf_field() !!}
-                        <button class="file-upload btn" style="display:inline-block; width:130px; height:40px;border-radius: 4px; position:relative; overflow:hidden;">
+                        <button class="file-upload btn btn-default" style="display:inline-block; width:130px; height:40px;border-radius: 4px; position:relative; overflow:hidden;">
                             Select an image
                             <input type="file" name="avatar" accept="image/*" style="position:absolute; right:0; top:0; font-size:100px; opacity:0; filter:alpha(opacity=0);">
                         </button>
-                        <button class="btn" type="submit">修改头像</button>
+                        <button class="btn btn-default" type="submit">修改头像</button>
                     </form>
                     <form action="{{ url('user/'.Auth::id().'/update') }}" method="POST"  enctype="multipart/form-data">
                         {!! csrf_field() !!}
@@ -54,7 +54,7 @@
                             </div>
                         @endif
                         <div class="form-group">
-                            <button class="btn btn-default" type="submit">Update</button>
+                            <button class="btn btn-primary" type="submit">Update</button>
                         </div>
                     </form>
                 </div>

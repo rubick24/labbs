@@ -11,11 +11,15 @@ use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('checkpermission')->only('destroy');
+        $this->middleware(['role:member|owner'])->except('user','active');;
+    }
+
     public function user($id){
-        if(User::find($id)&&User::find($id)->status==1){
-            return view('user.profile')->withUser(User::find($id));
-        }
-        else return redirect()->back();
+        return view('user.profile')->withUser(User::find($id));
     }
 
     public function active(){
@@ -35,12 +39,7 @@ class UserController extends Controller
     }
 
     public function avatar(Request $request,$id){
-        if(Auth::guest()){
-            return redirect('login');
-        }
-        if($id!=Auth::id()||Auth::user()->status!=1){
-            return abort(403);
-        }
+
         $this->validate($request,[
             'avatar'  =>  'required|image'
         ]);
@@ -53,12 +52,7 @@ class UserController extends Controller
     }
 
     public function update(Request $request,$id){
-        if(Auth::guest()){
-            return redirect('login');
-        }
-        if($id!=Auth::id()||Auth::user()->status!=1){
-            return abort(403);
-        }
+
         $this->validate($request,[
             'name'=> 'required|max:255',
             'bio' => 'string',
@@ -77,10 +71,7 @@ class UserController extends Controller
     }
 
     public function settings(){
-        if(Auth::check()&&Auth::user()->status==1){
-            return view('user.settings')->withUser(Auth::user());
-        }
-        else return redirect('login');
+        return view('user.settings')->withUser(Auth::user());
     }
 
 }

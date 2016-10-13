@@ -12,6 +12,14 @@ use Storage;
 
 class ArticleController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index','show');
+        $this->middleware('checkpermission')->only('destroy');
+        $this->middleware(['role:member|owner'])->except('index','show');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,13 +38,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        if(\Auth::guest())
-            return redirect('/login');
-        if(\Auth::user()->hasRole('member')||\Auth::user()->hasRole('owner')){
-            $categorys = Category::all();
-            return view('article.create',compact('categorys'));
-        }
-        else abort(403);
+        $categorys = Category::all();
+        return view('article.create',compact('categorys'));
     }
 
     /**
@@ -47,9 +50,6 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        if(\Auth::guest())
-            return redirect('/login');
-        if(\Auth::user()->hasRole('member')||\Auth::user()->hasRole('owner')) {
             $this->validate($request, [
                 'title' => 'required|max:255',
                 'content' => 'required',
@@ -67,8 +67,6 @@ class ArticleController extends Controller
             $article->save();
             \Log::info('New article created',['article_id'=>$article->id,'user_id'=>$article->user_id]);
             return redirect('/article/'.$article->id);
-        }
-        else abort(403);
     }
 
     /**
@@ -116,16 +114,12 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        if(\Auth::id() == Article::find($id)->user_id||\Auth::user()->hasRole('owner')||\Auth::user()->hasRole('admin')){
-            foreach (Article::find($id)->comments as $comment){
-                $comment->delete();
-            }
-            Article::find($id)->delete();
-            \Log::notice('Article Deleted (with its comments)',['article_id'=>$id]);
-            return redirect('/article');
+        foreach (Article::find($id)->comments as $comment){
+            $comment->delete();
         }
-        else return abort(403);
-
+        Article::find($id)->delete();
+        \Log::notice('Article Deleted (with its comments)',['article_id'=>$id]);
+        return redirect('/article');
     }
 
     public function search(){
