@@ -14,7 +14,6 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('checkpermission')->only('destroy');
         $this->middleware(['role:member|owner'])->except('user','active');;
     }
 

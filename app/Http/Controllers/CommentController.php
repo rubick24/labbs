@@ -13,7 +13,6 @@ class CommentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('checkpermission')->only('destroy');
         $this->middleware(['role:member|owner']);
     }
 
@@ -38,15 +37,18 @@ class CommentController extends Controller
     }
 
     public function destroy($id){
-        $comment =Comment::find($id);
-        \Log::notice('Delete comment',[
-            'comment_id'=>$comment->id,
-            'user_id'=>$comment->user_id,
-            'article_id'=>$comment->article_id,
-            'content' => $comment->content,
-        ]);
-        $comment->delete();
-        return redirect()->back();
+        if(\Auth::id()==Comment::find($id)->user_id||\Auth::user()->hasRole('owner')||\Auth::user()->hasRole('admin')){
+            $comment =Comment::find($id);
+            \Log::notice('Delete comment',[
+                'comment_id'=>$comment->id,
+                'user_id'=>$comment->user_id,
+                'article_id'=>$comment->article_id,
+                'content' => $comment->content,
+            ]);
+            $comment->delete();
+            return redirect()->back();
+        }
+        else return abort(403);
     }
 
 }

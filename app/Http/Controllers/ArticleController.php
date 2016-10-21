@@ -16,7 +16,6 @@ class ArticleController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('index','show');
-        $this->middleware('checkpermission')->only('destroy');
         $this->middleware(['role:member|owner'])->except('index','show');
     }
 
@@ -114,12 +113,15 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        foreach (Article::find($id)->comments as $comment){
-            $comment->delete();
+        if(\Auth::id()==Article::find($id)->user_id||\Auth::user()->hasRole('owner')||\Auth::user()->hasRole('admin')){
+            foreach (Article::find($id)->comments as $comment){
+                $comment->delete();
+            }
+            Article::find($id)->delete();
+            \Log::notice('Article Deleted (with its comments)',['article_id'=>$id]);
+            return redirect('/article');
         }
-        Article::find($id)->delete();
-        \Log::notice('Article Deleted (with its comments)',['article_id'=>$id]);
-        return redirect('/article');
+        else return abort(403);
     }
 
     public function search(){
