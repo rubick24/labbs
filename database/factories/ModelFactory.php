@@ -36,8 +36,8 @@ $factory->define(App\Category::class,function (Faker\Generator $faker){
 });
 
 $factory->define(App\Article::class,function (Faker\Generator $faker){
-    $user_ids = \App\User::lists('id')->toArray();
-    $category_ids = \App\Category::lists('id')->toArray();
+    $user_ids = \App\User::pluck('id')->toArray();
+    $category_ids = \App\Category::pluck('id')->toArray();
     return [
         'user_id'     => $faker->randomElement($user_ids),
         'category_id' => $faker->randomElement($category_ids),
@@ -49,8 +49,8 @@ $factory->define(App\Article::class,function (Faker\Generator $faker){
 });
 
 $factory->define(App\Comment::class,function (Faker\Generator $faker){
-    $article_ids = \App\Article::lists('id')->toArray();
-    $user_ids = \App\User::lists('id')->toArray();
+    $article_ids = \App\Article::pluck('id')->toArray();
+    $user_ids = \App\User::pluck('id')->toArray();
     return [
         'article_id'  => $faker->randomElement($article_ids),
         'user_id'     => $faker->randomElement($user_ids),
@@ -59,7 +59,7 @@ $factory->define(App\Comment::class,function (Faker\Generator $faker){
 });
 
 $factory->define(App\Message::class,function (Faker\Generator $faker){
-    $user_ids = \App\User::lists('id')->toArray();
+    $user_ids = \App\User::pluck('id')->toArray();
     return [
         'user_id'     => $faker->randomElement($user_ids),
         'sender_id'  => $faker->randomElement($user_ids),
