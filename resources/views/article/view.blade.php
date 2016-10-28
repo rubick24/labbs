@@ -39,7 +39,7 @@
                     <div class="panel-body">
                         <div class="media">
                             <div class="media-left">
-                                <a href="{{url('/user/'.$article->user_id)}}">
+                                <a href="{{url('/user/'.$comment->user->id)}}">
                                     <img class="media-object" style="width: 80px" src="{{ asset('storage/'.$comment->user->avatar)}}">
                                 </a>
                             </div>
